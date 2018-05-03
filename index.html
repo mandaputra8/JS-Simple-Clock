@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Simple Clock Js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="clock">
+    <div class="clock-face">
+      <div class="point hour-point"></div>
+      <div class="point min-point"></div>
+      <div class="point sec-point"></div>
+    </div>
+  </div>
+
+  <style>
+    html {
+      background: linear-gradient(0deg,
+      rgba(34, 193, 195, 1)0%,
+      rgba(254, 187, 45, 1)100%);
+      background-size: cover;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      font-size: 2rem;
+      align-items: center;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 3px solid black;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow: 0 0 0px 4px rgb(0, 0, 0),
+      inset 0 0 0 3px rgb(97, 47, 47),
+      inset 0 0 0 5px whitesmoke,
+      0 0 0 10px rgba(0, 0, 0, 2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translate(-3px);
+    }
+
+    .point {
+      width: 50%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      border-radius: 20px;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0, 3.29, .58, .74);
+    }
+
+    .hour-point {
+      height: 6px;
+    }
+
+    .min-point {
+      height: 4px;
+    }
+
+    .sec-point {
+      height: 2px;
+    }
+  </style>
+
+  <script>
+    const secondsPoint = document.querySelector('.sec-point');
+    const minutesPoint = document.querySelector('.min-point');
+    const hourPoint = document.querySelector('.hour-point');
+
+    function setDate() {
+      const now = new Date();
+
+      const seconds = now.getSeconds();
+      const mins = now.getMinutes();
+      const hour = now.getHours();
+
+      const secondsDegrees = ((seconds / 60) * 360) + 90;
+      secondsPoint.style.transform = `rotate(${secondsDegrees}deg)`;
+
+      const minutesDegrees = ((mins / 60) * 360) + 90;
+      minutesPoint.style.transform = `rotate(${minutesDegrees}deg)`;
+
+      const hourDegrees = ((hour / 12) * 360) + 90;
+      hourPoint.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+
+    setInterval(setDate, 1000);
+  </script>
+</body>
+
+</html>
